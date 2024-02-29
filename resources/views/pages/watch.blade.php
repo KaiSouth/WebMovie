@@ -16,14 +16,27 @@
          <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
             <section id="content" class="test">
                <div class="clearfix wrap-content">
-               <iframe style="height:450px;width:100%;margin-top:14px;border:0px" frameborder="0"  scrolling="0" allowfullscreen src="{{$episode->linkphim}}" ></iframe>
+               @if(Str::startsWith($episode->linkphim, 'http'))
+                    {{-- Nhúng iframe với liên kết video từ bên ngoài --}}
+                    <iframe style="height:450px;width:100%;margin-top:14px;border:0"
+                            src="{{ $episode->linkphim }}"
+                            frameborder="0"
+                            scrolling="no"
+                            allowfullscreen>
+                    </iframe>
+                @else
+                    {{-- Sử dụng trình phát video HTML5 cho HLS --}}
+                    <video id="video" controls style="height:450px;width:100%;margin-top:14px;">
+                        <source src="{{ asset('storage/streamVideo/' . $episode->linkphim) }}" type="application/x-mpegURL">
+                        Your browser does not support HTML5 video.
+                    </video>
+                @endif
                   <div class="collapse" id="moretool">
                      <ul class="nav nav-pills x-nav-justified">
                         <li class="fb-like" data-href="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></li>
                         <div class="fb-save" data-uri="" data-size="small"></div>
                      </ul>
                   </div>
-
                   <div class="clearfix"></div>
                   <div class="clearfix"></div>
                   <div class="title-block">
@@ -155,6 +168,23 @@
                jQuery(document).ready(function($) {
                var owl = $('#halim_related_movies-2');
                owl.owlCarousel({loop: true,margin: 4,autoplay: true,autoplayTimeout: 4000,autoplayHoverPause: true,nav: true,navText: ['<i class="hl-down-open rotate-left"></i>', '<i class="hl-down-open rotate-right"></i>'],responsiveClass: true,responsive: {0: {items:2},480: {items:3}, 600: {items:4},1000: {items: 4}}})});
+            </script>
+
+            <script>
+                   var video = document.getElementById('video');
+                    if (Hls.isSupported()) {
+                        var hls = new Hls();
+                        hls.loadSource("{{ asset('storage/streamVideo/'.$episode->linkphim) }}");
+                        hls.attachMedia(video);
+                        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                            video.play();
+                        });
+                    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                        video.src = "{{ asset('storage/streamVideo/'.$episode->linkphim) }}";
+                        video.addEventListener('loadedmetadata', function() {
+                            video.play();
+                        });
+                    }
             </script>
             </div>
             </section>

@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.3|^8.0|^8.1",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
@@ -14,7 +14,9 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "*",
         "laravelcollective/html": "^6.4",
-        "laravelium/sitemap": "^8.0"
+        "laravelium/sitemap": "^8.0",
+        "pbmedia/laravel-ffmpeg": "^7.8",
+        "php-ffmpeg/php-ffmpeg": "^1.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

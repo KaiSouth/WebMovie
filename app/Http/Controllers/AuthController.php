@@ -100,7 +100,7 @@ class AuthController extends Controller
             }
         }
 
-        Auth::loginUsingId($user->id, true);
+        Auth::guard('customer')->loginUsingId($user->id, true);
 
         return redirect()->route('homepage');
     }

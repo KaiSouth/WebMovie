@@ -9,7 +9,7 @@ use App\Models\Country;
 use App\Models\Genre;
 use App\Models\Episode;
 use Carbon\Carbon;
-use File;
+use Illuminate\Support\Facades\File;
 
 class MovieController extends Controller
 {

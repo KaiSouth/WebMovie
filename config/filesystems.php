@@ -53,6 +53,14 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+       // Cấu hình disk cho video
+       'videos' => [
+        'driver' => 'local',
+        // Cấu hình đường dẫn chứa file nguồn và output thế này là đủ và đúng
+        'root' => 'D:\webphim\WebMovie\public\public\streamVideo',
+    ],
+
+
     ],
 
     /*

@@ -10,6 +10,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\LeechMovieController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [IndexController::class, 'home'])->name('homepage');
@@ -83,7 +84,8 @@ Route::get('/google/callback', [AuthController::class, 'handleGoogleCallback']);
 Route::get('/login/facebook', [AuthController::class, 'redirectToFacebook']);
 Route::get('/facebook/callback', [AuthController::class, 'handleFacebookCallback']);
 
-
+//Renser video
+Route::get('/convert_to_hls',[VideoController::class,'convertToHls']);
 
 
 
